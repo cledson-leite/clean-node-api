@@ -1,0 +1,7 @@
+{
+  "name": "clean-node-api",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "cledson leite <csbetsonline@gmail.com>",
+  "license": "MIT"
+}
