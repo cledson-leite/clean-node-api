@@ -17,5 +17,6 @@ describe('SingUp Controller', () => {
         }
         const response = sut.handle(request)
         expect(response.statusCode).toBe(400)
+        expect(response.body).toEqual(new Error('Missing Params Error'))
     })
 })
