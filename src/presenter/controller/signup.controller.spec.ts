@@ -1,5 +1,6 @@
 import {faker} from '@faker-js/faker'
 import { SignUpController } from './signup.controller'
+import { MissingParamsException } from './exeception/missing-params.exception'
 // const request = {
 //             body: {
 //                 name: faker.person.fullName(),
@@ -25,6 +26,6 @@ describe('SingUp Controller', () => {
         }
         const response = sut.handle(request)
         expect(response.statusCode).toBe(400)
-        expect(response.body).toEqual(new Error('Missing Params Error'))
+        expect(response.body).toEqual(new MissingParamsException())
     })
 })

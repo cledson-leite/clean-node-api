@@ -1,4 +1,5 @@
 import { Request, Response } from "./dto/signup.interface"
+import { MissingParamsException } from "./exeception/missing-params.exception"
 
 export class SignUpController {
     handle(request: Request): Response {
@@ -6,7 +7,7 @@ export class SignUpController {
         if(!name || !email){
             return {
                 statusCode: 400,
-                body: new Error('Missing Params Error')
+                body: new MissingParamsException
             }
         }
         
