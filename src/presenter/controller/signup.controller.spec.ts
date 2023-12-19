@@ -28,4 +28,14 @@ describe('SingUp Controller', () => {
         expect(response.statusCode).toBe(400)
         expect(response.body).toEqual(new MissingParamsException())
     })
+    it('Should return 400 if no password provided', () => {
+        const sut = new SignUpController()
+        const request = {
+                name: faker.person.fullName(),
+                email: faker.internet.email(),
+        }
+        const response = sut.handle(request)
+        expect(response.statusCode).toBe(400)
+        expect(response.body).toEqual(new MissingParamsException())
+    })
 })
