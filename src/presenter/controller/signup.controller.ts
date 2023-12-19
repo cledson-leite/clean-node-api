@@ -1,6 +1,8 @@
+import { Request, Response } from "./dto/signup.interface"
+
 export class SignUpController {
-    handle(request) {
-        const {name, email} = request.body
+    handle(request: Request): Response {
+        const {name, email} = request
         if(!name || !email){
             return {
                 statusCode: 400,
