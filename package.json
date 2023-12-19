@@ -3,5 +3,8 @@
   "version": "0.0.1",
   "main": "index.js",
   "author": "cledson leite <csbetsonline@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "git-commit-msg-linter": "^5.0.6"
+  }
 }
