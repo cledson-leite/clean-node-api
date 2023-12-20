@@ -48,6 +48,11 @@ describe('SingUp Controller', () => {
         expect(response.statusCode).toBe(400)
         expect(response.body).toEqual(new MissingParamsException())
     })
+    it('Should call emailValidator with correct email', () => {
+        const isValidSpy = jest.spyOn(validator, 'isValid')
+        sut.handle(request)
+        expect(isValidSpy).toHaveBeenCalledWith(request.email)
+    })
     it('Should return 400 if an invalid email is provided', () => {
         jest.spyOn(validator, 'isValid').mockReturnValueOnce(false)
         const response = sut.handle(request)
