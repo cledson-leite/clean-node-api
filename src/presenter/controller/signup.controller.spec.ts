@@ -8,8 +8,12 @@ import { MissingParamsException } from './exeception/missing-params.exception'
 //                 password: faker.internet.password()
 //             }
 describe('SingUp Controller', () => {
+    let sut: SignUpController
+
+    beforeAll(() => {
+        sut = new SignUpController()
+    })
     it('Should return 400 if no name provided', () => {
-        const sut = new SignUpController()
         const request = {
             email: faker.internet.email(),
             password: faker.internet.password()
@@ -19,7 +23,7 @@ describe('SingUp Controller', () => {
         expect(response.body).toEqual(new Error('Missing Params Error'))
     })
     it('Should return 400 if no email provided', () => {
-        const sut = new SignUpController()
+    
         const request = {
                 name: faker.person.fullName(),
                 password: faker.internet.password()
@@ -29,7 +33,7 @@ describe('SingUp Controller', () => {
         expect(response.body).toEqual(new MissingParamsException())
     })
     it('Should return 400 if no password provided', () => {
-        const sut = new SignUpController()
+    
         const request = {
                 name: faker.person.fullName(),
                 email: faker.internet.email(),
