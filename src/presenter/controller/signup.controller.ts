@@ -1,10 +1,14 @@
+import { IAddAccount } from "../ports/in/i-add-account"
 import { IEmailValidator } from "../ports/out/i-email-validator"
 import { Request, Response } from "./dto/signup.interface"
 import { InvalidParamsException, ServerError } from "./exeception"
 import { MissingParamsException } from "./exeception/missing-params.exception"
 
 export class SignUpController {
-    constructor(private readonly validator: IEmailValidator){}
+    constructor(
+        private readonly addAccount: IAddAccount,
+        private readonly validator: IEmailValidator
+        ){}
     handle(request: Request): Response {
         try {
             const {name, email, password} = request
@@ -21,6 +25,7 @@ export class SignUpController {
                 body: new InvalidParamsException()
             }
         }
+        this.addAccount.add(request)
         } catch (error) {
             return {
                 statusCode: 500,
