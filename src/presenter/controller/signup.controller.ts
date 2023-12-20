@@ -25,7 +25,11 @@ export class SignUpController {
                 body: new InvalidParamsException()
             }
         }
-        this.addAccount.add(request)
+        const result = this.addAccount.add(request)
+        return {
+                statusCode: 200,
+                body: result
+            } 
         } catch (error) {
             return {
                 statusCode: 500,
