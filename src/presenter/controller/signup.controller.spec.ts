@@ -4,8 +4,11 @@ import { InvalidParamsException, MissingParamsException, ServerError } from './e
 import { Request } from './dto/signup.interface'
 import { IEmailValidator } from '../ports/out/i-email-validator'
 import { EmailValidatorStub } from './mocks/email-validator.stub'
+import { AddAccountStub } from './mocks/add-account.stub'
+import { IAddAccount } from '../ports/in/i-add-account'
 describe('SingUp Controller', () => {
     let validator: IEmailValidator
+    let addAccount: IAddAccount
     let request: Request
     let sut: SignUpController
 
@@ -16,7 +19,8 @@ describe('SingUp Controller', () => {
             password: faker.internet.password()
         }
         validator = new EmailValidatorStub()
-        sut = new SignUpController(validator)
+        addAccount = new AddAccountStub()
+        sut = new SignUpController(addAccount, validator)
     })
     it('Should return 400 if no name provided', () => {
         const request = {
@@ -64,5 +68,10 @@ describe('SingUp Controller', () => {
         const response = sut.handle(request)
         expect(response.statusCode).toBe(500)
         expect(response.body).toEqual(new ServerError())
+    })
+    it('Should call addAccount with correct params', () => {
+        const addSpy = jest.spyOn(addAccount, 'add')
+        sut.handle(request)
+        expect(addSpy).toHaveBeenCalledWith(request)
     })
 })
