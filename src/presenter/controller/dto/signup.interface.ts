@@ -3,7 +3,7 @@ export interface Response {
     body: any
 }
 export interface Request {
-    name?: string,
-    email?: string,
-    password?: string,
+    name: string,
+    email: string,
+    password: string,
 }

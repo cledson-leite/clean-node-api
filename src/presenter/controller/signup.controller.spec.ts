@@ -15,6 +15,7 @@ describe('SingUp Controller', () => {
     })
     it('Should return 400 if no name provided', () => {
         const request = {
+            name: ' ',
             email: faker.internet.email(),
             password: faker.internet.password()
         }
@@ -26,6 +27,7 @@ describe('SingUp Controller', () => {
     
         const request = {
                 name: faker.person.fullName(),
+                email: ' ',
                 password: faker.internet.password()
         }
         const response = sut.handle(request)
@@ -37,6 +39,7 @@ describe('SingUp Controller', () => {
         const request = {
                 name: faker.person.fullName(),
                 email: faker.internet.email(),
+                password: ' '
         }
         const response = sut.handle(request)
         expect(response.statusCode).toBe(400)
