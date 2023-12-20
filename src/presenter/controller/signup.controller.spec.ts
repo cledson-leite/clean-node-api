@@ -1,6 +1,6 @@
 import {faker} from '@faker-js/faker'
 import { SignUpController } from './signup.controller'
-import { InvalidParamsException, MissingParamsException } from './exeception'
+import { InvalidParamsException, MissingParamsException, ServerError } from './exeception'
 import { Request } from './dto/signup.interface'
 import { IEmailValidator } from '../ports/out/i-email-validator'
 import { EmailValidatorStub } from './mocks/email-validator.stub'
@@ -58,5 +58,11 @@ describe('SingUp Controller', () => {
         const response = sut.handle(request)
         expect(response.statusCode).toBe(400)
         expect(response.body).toEqual(new InvalidParamsException())
+    })
+    it('Should return 500 if validator throws', () => {
+        jest.spyOn(validator, 'isValid').mockImplementationOnce(() => { throw new Error()})
+        const response = sut.handle(request)
+        expect(response.statusCode).toBe(500)
+        expect(response.body).toEqual(new ServerError())
     })
 })
